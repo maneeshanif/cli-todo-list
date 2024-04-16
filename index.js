@@ -1,17 +1,23 @@
+#! /usr/bin/env node
 import inquirer from "inquirer";
+import chalk from "chalk";
+console.log(chalk.greenBright.bold.bgWhiteBright.overline('\t\t\t\t\t\t TODO-List'));
+console.log(chalk.greenBright('\nDeveloped By:'));
+console.log(chalk.redBright.underline.italic("\tAnees Hanif"));
+console.log("\n");
 let todos = [];
 async function createTodo(todos) {
     do {
         let ans = await inquirer.prompt({
             type: "list",
-            message: "Select an operation",
+            message: chalk.yellowBright.italic.bold.underline("Select an operation you want to perform"),
             name: "select",
             choices: ["Add", "Update", "View", "Delete", "Exit"],
         });
         if (ans.select === "Add") {
             let addTodo = await inquirer.prompt({
                 type: "input",
-                message: "Add items in Todo",
+                message: chalk.redBright.italic.bold.underline("\tAdd items in Todo"),
                 name: "todo",
             });
             todos.push(addTodo.todo);
@@ -20,13 +26,13 @@ async function createTodo(todos) {
         if (ans.select === "Update") {
             let updateTodo = await inquirer.prompt({
                 type: "list",
-                message: "Select items for update",
+                message: chalk.blueBright.italic.bold.underline("\tSelect items for update"),
                 name: "todo",
                 choices: todos.map((item) => item),
             });
             let addTodo = await inquirer.prompt({
                 type: "input",
-                message: "Add items in Todo",
+                message: chalk.cyanBright.italic.underline("\tAdd items in Todo"),
                 name: "todo",
             });
             let newTodos = todos.filter((val) => val !== updateTodo.todo);
@@ -39,7 +45,7 @@ async function createTodo(todos) {
         if (ans.select === "Delete") {
             let deleteTodo = await inquirer.prompt({
                 type: "list",
-                message: "Select items for delete",
+                message: chalk.greenBright.italic.bold.underline("\tSelect items for delete"),
                 name: "todo",
                 choices: todos.map((item) => item),
             });
