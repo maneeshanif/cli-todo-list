@@ -1,8 +1,8 @@
 #! /usr/bin/env node
 import inquirer from "inquirer";
 import chalk from "chalk";
-console.log(chalk.greenBright.bold.bgWhiteBright.overline('\t\t\t\t\t\t TODO-List'));
-console.log(chalk.greenBright('\nDeveloped By:'));
+console.log(chalk.greenBright.bold.bgWhiteBright.overline("\t\t\t\t\t\t TODO-List"));
+console.log(chalk.greenBright("\nDeveloped By:"));
 console.log(chalk.redBright.underline.italic("\tAnees Hanif"));
 console.log("\n");
 let todos = [];
@@ -13,6 +13,14 @@ async function createTodo(todos) {
             message: chalk.yellowBright.italic.bold.underline("Select an operation you want to perform"),
             name: "select",
             choices: ["Add", "Update", "View", "Delete", "Exit"],
+            validate: function (value) {
+                if (value.trim() !== " ") {
+                    return true;
+                }
+                else {
+                    return "plese enter a non-empty value";
+                }
+            },
         });
         if (ans.select === "Add") {
             let addTodo = await inquirer.prompt({
